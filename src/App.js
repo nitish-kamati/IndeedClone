@@ -1,13 +1,19 @@
-// import logo from './logo.svg';
-import './App.css';
 import Home from './pages/Home';
+import CreatePost from './pages/CreatePost';
+import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import { routePath } from './routes/route';
 
 
 
 
 function App() {
   return (
-    <Home/>
+    <Router>
+      <Routes>
+          <Route path={routePath.home} element = {<Home/>}/>
+          <Route path ={routePath.create} element={<CreatePost/>}/>
+      </Routes>
+    </Router>
   );
 }
 export default App;
