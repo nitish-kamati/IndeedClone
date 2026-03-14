@@ -4,6 +4,9 @@ import Header from "../components/Header";
 import {Box,Typography,styled, TextField, Button} from '@mui/material';
 import image from "../post.webp";
 import Dropdown from "../components/Dropdown";
+import { savePost } from "../services/api"; 
+import { useNavigate } from "react-router-dom";
+import { routePath } from "../routes/route";
 
 const Component = styled(Box) ({
     padding: '80px 200px',
@@ -32,7 +35,7 @@ const FormWrapper = styled(Box) ({
     background:'#ffffff',
     borderRadius : 20,
     '& > *' : {
-        marginTop:'20px'
+        marginTop:'20px !important'
     }
 })
 
@@ -49,15 +52,23 @@ const options = {
     type : ["Online", "Remote", "Hybrid"],
     experience: ["0-2 years", "3-5 years", "5-8 years", "8-10 years ", "10 or more"],
     technology: ["Java", "Spring Boot", "MySql", "Python", "Javascript", "React", "C", "C++", "Ruby", "R", "AWS", "Docker", "HTML", "CSS"],
-    salary: ["Rs 0-300000", "Rs 0-300000", "Rs 300000-500000", "Rs 500000- 800000", "Rs 800000-1000000", "Rs 1000000+"] 
+    salary: ["Rs 0-200000", "Rs 200000-300000", "Rs 300000-500000", "Rs 500000- 800000", "Rs 800000-1000000", "Rs 1000000+"] 
 }
 
 const CreatePost = () => {
 
     const [data, setData] = useState(defaultObj);
 
+    const navigate = useNavigate();
+
     const handleChange = (e) => {
         setData({...data, [e.target.name]: e.target.value});
+    }
+
+    const saveJob = async() => {
+        await savePost(data);
+        navigate(routePath.posts);
+
     }
     return (
         <>
@@ -73,7 +84,7 @@ const CreatePost = () => {
                 <FormWrapper>
                     <TextField 
                     placeholder="Job title" 
-                    name = "Profile"
+                    name = "profile"
                     onChange={handleChange}
                     />
                         
@@ -121,7 +132,7 @@ const CreatePost = () => {
                         options = {options.salary}
                         />
 
-                    <Button variant="contained">Save Job</Button>
+                    <Button onClick= {() => saveJob()} variant="contained">Save Job</Button>
                 </FormWrapper>
 
 

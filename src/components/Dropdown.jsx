@@ -27,7 +27,7 @@ const Dropdown = ({
             >
                 {
                     options.map(option => (
-                        <MenuItem value={value}>{option}</MenuItem>
+                        <MenuItem value={options}>{option}</MenuItem>
                     ))
                 }
                 </Select>
